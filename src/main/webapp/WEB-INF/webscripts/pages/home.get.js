@@ -125,6 +125,9 @@ model.jsonModel = {
                       }
                     ]
                   }
+                },
+                {
+                	  name: "tutorial/HelloWorld"
                 }
                // Add more widgets here !!!
             ]

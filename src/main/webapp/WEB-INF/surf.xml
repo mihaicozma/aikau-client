@@ -112,6 +112,8 @@
                    <package name="acme" location="js/acme"/>
 
                    <!-- Add custom packages here -->
+                   <package name="tutorial" location="js/tutorial"/>
+                   
                </packages>
             </dojo-pages>
         </web-framework>
