@@ -4,7 +4,17 @@ model.jsonModel = {
 			"alfresco/services/DocumentService",
 			"alfresco/services/ActionService",
 			"alfresco/services/UploadService",
-			"alfresco/services/DialogService"
+			"alfresco/services/DialogService", 
+			{
+				name : "alfresco/services/LoggingService",
+				config : {
+					loggingPreferences : {
+						enabled : true,
+						all : true
+					}
+				}
+			}, "alfresco/services/PreferenceService"
+
 	// Add more services here !!!
 	],
 	widgets : [ {
@@ -56,7 +66,8 @@ model.jsonModel = {
 						name : "alfresco/documentlibrary/views/AlfSimpleView"
 					} ]
 				}
-			}, {
+			}, 
+			{
 				name : "tutorial/HelloWorld"
 			}
 			// Add more widgets here !!!
