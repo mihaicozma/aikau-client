@@ -67,6 +67,7 @@ define(["dojo/_base/declare",
        * @instance
        */
       postMixInProperties: function acme_HelloWorld__postMixInProperties() {
+    	 this.alfLog("log", "Setting greeting message!");
          this.greeting = this.message("greeting.label");
       },
 
