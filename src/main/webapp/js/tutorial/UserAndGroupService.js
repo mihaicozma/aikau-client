@@ -11,21 +11,53 @@ define([ "dojo/_base/declare", "alfresco/core/Core", "dojo/_base/lang",
          lang.mixin(this, args);
          this.alfSubscribe("TUTORIAL_CREATE_GROUP", lang.hitch(this,
                this.createGroup));
+         this.alfSubscribe("TUTORIAL_ADD_USER_TO_GROUP", lang.hitch(this,
+               this.addUserToGroup));
       },
 
-      createGroup: function tutorial_UserAndGroupService__createGroup(payload) {
-         this.serviceXhr({
-           url: AlfConstants.PROXY_URI + "api/rootgroups/" + payload.groupId,
-           method: "POST",
-           data: {
-             displayName: payload.displayName
-           },
-           successCallback: this.onSuccess,
-           callbackScope: this
+      createGroup : function tutorial_UserAndGroupService__createGroup(payload)
+      {
+         this.serviceXhr(
+         {
+            url : AlfConstants.PROXY_URI + "api/rootgroups/" + payload.groupId,
+            method : "POST",
+            data :
+            {
+               displayName : payload.displayName
+            },
+            successCallback : this.onSuccess,
+            callbackScope : this
          });
-       },
-       onSuccess: function tutorial_UserAndGroupService__onSuccess(response, originalRequestConfig) {
-          this.alfPublish("ALF_DOCLIST_RELOAD_DATA", {});
-        }
+      },
+      onSuccess : function tutorial_UserAndGroupService__onSuccess(response,
+            originalRequestConfig)
+      {
+
+         var pubSubScope = lang.getObject("data.pubSubScope", false,
+               originalRequestConfig);
+         if (pubSubScope == null)
+         {
+            pubSubScope = "";
+         }
+         this.alfPublish(pubSubScope + "ALF_DOCLIST_RELOAD_DATA");
+
+         // this.alfPublish("ALF_DOCLIST_RELOAD_DATA", {});
+      },
+      addUserToGroup : function tutorial_UserAndGroupService__addUserToGroup(
+            payload)
+      {
+         this.serviceXhr(
+         {
+            url : AlfConstants.PROXY_URI + "api/groups/" + payload.groupId
+                  + "/children/" + payload.userName,
+            method : "POST",
+            data :
+            {
+               pubSubScope : payload.pubSubScope
+            },
+            successCallback : this.onSuccess,
+            callbackScope : this
+         });
+      },
    });
 });
